@@ -1,0 +1,116 @@
+body{
+  font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+/*Navigation*/
+nav {
+
+  width:100%;
+  text-align: center;
+}
+
+nav a{
+  text-decoration: none;
+  display: inline;
+  padding: 10px;
+}
+
+.top-search{
+
+}
+
+/*Header Section and Search*/
+.search{
+  text-align: center;
+}
+
+.heading{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-basis: auto;
+  flex-direction: column;
+}
+/*Google Map*/
+#map-wrapper{
+   margin: auto;
+   padding: 3px;
+   height: 300px;
+   width: 500px;
+}
+
+#map{
+  display: none;
+
+}
+
+/* Results and cards*/
+
+
+.results{
+  display: grid;
+  box-sizing: inherit;
+  justify-content: center;
+  align-content: center;
+
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: auto;
+  grid-gap:3rem;
+  max-width: 90%;
+  height: 90%;
+
+
+  /*align-items: flex-start;
+  justify-content: center;
+  flex-basis: auto;
+  flex-direction: row;
+  flex-wrap: wrap;*/
+}
+ .dataCard{
+   background-color: rgba(176, 165, 211, 0.1);
+   width: 100%;
+   height: 100%;
+   border-radius: 0.25rem;
+   padding: 1rem;
+   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+   transition: 0.3s;
+   margin:10px;
+
+   display:flex;
+   flex-direction: column;
+   justify-content: flex-start;
+
+ }
+
+ .dataCard:hover {
+    background-color: #92DBF1;
+    box-shadow: 0 7px 12px 0 rgba(0,0,0,0.6);
+    transition: 0.3s;
+    color: #fff;
+ }
+
+ .cardTitle{
+   font-family:Futara;
+   font-size:25px;
+   font-weight: bold;
+   text-align: center;
+   align-items: flex-start;
+   text-decoration: underline;
+   color:#333;
+   margin-bottom: 0;
+   padding-bottom: 2px;
+ }
+
+
+ .dataTable{
+   justify-content: center;
+   ont-family:Futara;
+   font-size:18px;
+
+ }
+
+ .dataTable td{
+   text-align: center;
+   padding: 2px;
+ }

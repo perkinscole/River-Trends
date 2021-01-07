@@ -1,0 +1,49 @@
+<!--
+    RiverTrends/Index.html
+    @author Cole Perkins 2020
+    This is the front page of River Trends, a small web app designed for anglers,
+    or anyone seeking information on rivers near them. It uses data provided
+    by the USGS to get current river conditions near the users location and
+    allows the user to select and browse the recent river history of that location.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>River Trends</title>
+</head>
+<link rel="stylesheet" href="RiverTrends.css">
+
+<body>
+  <!--START NAV AND HEADER-->
+  <nav>
+    <a href="index.html">River Trends</a>
+    <a href="#">About</a>
+  </nav>
+  <div class="top-search">
+    <div class="heading">
+      <div class="search">
+        <p id="userWelcome">Find Information on Rivers Near:<p id="location"></p>
+        <button type="button" name="button" onclick="CallUSGSIVWaterService()">Search Rivers Near Me</button>
+      </div>
+    </div>
+    <p></p>
+    <div id="map-wrapper">
+      <div id="map">
+      </div>
+    </div>
+  </div>
+<!--END NAV AND HEADER-->
+
+<!--START RESULTS-->
+  <div class="results">
+  </div>
+<!--END RESULTS-->
+</body>
+<!-- START SCRIPTS-->
+<script src="MapUtil.js" charset="utf-8"></script>
+<script src="RTData.js" charset="utf-8"></script>
+<script src="RiverTrendsUtil.js" charset="utf-8"></script>
+<!-- END SCRIPTS-->
+</html>
