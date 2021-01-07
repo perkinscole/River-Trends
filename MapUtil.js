@@ -9,6 +9,7 @@
 //--------------------------------------------------------START VARIABLES
 var gMarkers =[];
 let googGeoCode = "https://maps.googleapis.com/maps/api/geocode/json?latlng=";
+let apiKey = config.apiKey;
 //--------------------------------------------------------END Variables
 
 //--------------------------------------------------------INITIALIZATION
