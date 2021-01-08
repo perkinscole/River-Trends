@@ -5,7 +5,7 @@
     or anyone seeking information on rivers near them. It uses data provided
     by the USGS to get current river conditions near the users location and
     allows the user to select and browse the recent river history of that location.
--->
+  -->
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -13,10 +13,10 @@
   <meta charset="utf-8">
   <title>River Trends</title>
 </head>
-<link rel="stylesheet" href="RiverTrends.css">
+<link rel="stylesheet" href="css/RiverTrends.css">
 
 <body>
-  <!--START NAV AND HEADER-->
+  <!--START NAV AND HEADER -->
   <nav>
     <a href="index.html">River Trends</a>
     <a href="#">About</a>
@@ -24,8 +24,9 @@
   <div class="top-search">
     <div class="heading">
       <div class="search">
-        <p id="userWelcome">Find Information on Rivers Near:<p id="location"></p>
-        <button type="button" name="button" onclick="CallUSGSIVWaterService()">Search Rivers Near Me</button>
+        <p id="userWelcome">Find Information on Rivers:</p>
+        <input type="text" name="autoInput" id="placesSearchField"></input>
+        <button type="button" name="button" onclick="CallUSGSIVWaterService()">Search</button>
       </div>
     </div>
     <p></p>
@@ -34,17 +35,19 @@
       </div>
     </div>
   </div>
-<!--END NAV AND HEADER-->
+<!--END NAV AND HEADER -->
 
-<!--START RESULTS-->
+<!--START RESULTS -->
   <div class="results">
   </div>
-<!--END RESULTS-->
+<!--END RESULTS -->
+
 </body>
-<!-- START SCRIPTS-->
-<script src="config.js" charset="utf-8"></script>
-<script src="MapUtil.js" charset="utf-8"></script>
-<script src="RTData.js" charset="utf-8"></script>
-<script src="RiverTrendsUtil.js" charset="utf-8"></script>
-<!-- END SCRIPTS-->
+
+<!--START SCRIPTS -->
+<script src="scripts/config.js" charset="utf-8"></script>
+<script src="scripts/MapUtil.js" charset="utf-8"></script>
+<script src="scripts/RTData.js" charset="utf-8"></script>
+<script src="scripts/USGSUtil.js" charset="utf-8"></script>
+<!-- END SCRIPTS -->
 </html>

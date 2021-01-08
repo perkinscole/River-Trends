@@ -30,10 +30,11 @@ class RTData {
     var card = document.createElement("div");
     card.setAttribute("class","dataCard");
 
-   card.setAttribute("id", this.siteName);
+    card.setAttribute("id", this.siteName);
 
-   card.addEventListener("click", function(){
-     showSite(this.id);
+    card.addEventListener("click", function(){
+      map.setCenter(sites.get(this.id).siteLoc);
+      map.setZoom(12);
    });
     //create title
     var cardTitle = document.createElement("p");
@@ -65,20 +66,24 @@ class RTData {
       switch (this.variableCodes[vC]) {
         case "00010":
           tdCode.innerHTML = "Current Temperature, water: ";
-          tdValue.innerHTML = this.values[vC] + " °C";
+          if(Number(this.values[vC]) <= -999)
+              tdValue.innerHTML = "No Result";
+          else
+            tdValue.innerHTML = ((this.values[vC]*1.8)+32).toFixed(0) + " °F";
           break;
         case "00060":
           tdCode.innerHTML = "Current Streamflow: ";
-          tdValue.innerHTML = this.values[vC] + " ft³/s";
+          if(Number(this.values[vC]) <= -999)
+            tdValue.innerHTML = "No Result";
+          else
+            tdValue.innerHTML = this.values[vC] + " ft³/s";
           break;
         default:
           tdCode.innerHTML = "Something went wrong";
           break;
       }
 
-      if(tdValue.innerHTML <= "-999999"){
-        tdValue.innerHTML = "No Result";
-      }
+
 
 
       row.appendChild(tdCode);
@@ -89,6 +94,8 @@ class RTData {
     }
     return dataTable;
   }
+
+
 
 //--------------------------------------------------------END METHODS
   }

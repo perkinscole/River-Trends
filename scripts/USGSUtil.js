@@ -8,25 +8,18 @@
 
 //--------------------------------------------------------START VARIABLES
 //set the script variables
-var userLatitude,userLongitude;//variables to store user coordinates
-var loc;//user locations
-var map;//google map
 var sites;//usgs return sites
-var sites;
-let searchArea = 4;//search size for bbox
-
 //base USGS search params
 let USGS = "http://waterservices.usgs.gov/nwis/iv/?";
 let format = "&format=json";
 let indent = "&indent=on";
 let siteType = "&siteType=ST"
 let siteStatus = "&siteStatus=active";
-let dischargeAndTemp = "&parameterCd=00060,00010";//searchable parameters
+let dischargeAndTemp = "&parameterCd=00010,00060";//00060 cfs, 00011 degrees F
 
 //--------------------------------------------------------END VARIABLESS
 
-//INITIALIZATION
-window.onload = GetLongAndLat();
+
 
 //--------------------------------------------------------START METHODS
 /**
@@ -39,9 +32,12 @@ function CallUSGSIVWaterService(){
     var bBoxCoords = BBoxFromCoords();
     var queryString = USGS + format + indent + siteType + siteStatus + dischargeAndTemp + bBoxCoords;
     clearMarkers();
-    sites = new Map();
+    sites = new Map();//data map not google map
     map.setCenter(loc);
     map.setZoom(10);
+
+    addMarker(loc);
+
     $(".results").innerHTML = "Loading..."
 
     //send request to the USGS server
@@ -57,70 +53,6 @@ function CallUSGSIVWaterService(){
     xhttp.open("GET", queryString, true);
     xhttp.send();
 
-}
-
-/**
-* GetLongAndLat()
-* Gets coordinates from the user.
-*/
-function GetLongAndLat(){
-
-  navigator.geolocation.getCurrentPosition(locationSuccess,locationError);
-}
-
-/**
-* locationSuccess(position)
-* Callback function that is called if navigator can get current position, sets global user location.
-*/
-function locationSuccess(position){
-  userLatitude = position.coords.latitude;
-  userLongitude = position.coords.longitude;
-  //set page lat long
-
-  map = document.createElement('script');
-  map.src = "https://maps.googleapis.com/maps/api/js?key=" + apiKey + "&callback=initMap";
-  map.defer = true;
-  loc = {
-         lat:userLatitude,
-         lng:userLongitude,
-  };
-
-  callGeoDecode();
-  document.head.appendChild(map);
-}
-
-/**
-* locationError()
-* Callback function that is called if no position availible by the navigator
-*/
-function locationError(){
-  $('#location').innerHTML = " Sorry couldn't find your locaton";
-}
-
-/**
-* BBoxFromCoords()
-* Takes coodinates and returns Bounding Box of specific size in miles
-* 10001.965729km = 90 degrees
-* 1km = 90/10001.965729 degrees = 0.0089982311916 degrees
-* 1km = 0.621 miles
-* Source (https://gis.stackexchange.com/questions/19760/how-do-i-calculate-the-bounding-box-for-given-a-distance-and-latitude-longitude)
-* Returns a string representing the bounding box for querying the site.
-*/
-function BBoxFromCoords(){
-  let oneKMDegree = .08999;
-  let mileKmConversion = 0.62137;
-  let oneMileDegree = oneKMDegree * mileKmConversion;
-  let boxSize = searchArea * oneMileDegree;
-
-    //set the bbox coords
-    var  westLong = userLongitude - boxSize;
-    var  southLat = userLatitude - boxSize;
-    var  northLat = userLatitude + boxSize;
-    var  eastLong = userLongitude + boxSize;
-
-  //WEST, SOUTH, EAST, NORTH
-
-  return "&bBox="+westLong.toFixed(4) + "," + southLat.toFixed(4) + "," + eastLong.toFixed(4) + "," + northLat.toFixed(4);
 }
 
 /**
@@ -154,7 +86,6 @@ function DisplayData(response){
       site.siteLoc = {lat:site.siteLatitutde,lng:site.siteLongitude};
 
       site.variableCodes.push(timeSeries[i].variable.variableCode[0].value);
-      console.log(timeSeries[i].variable.variableCode.value);
       site.values.push(timeSeries[i].values[0].value[0].value);
       site.siteProperty = timeSeries[i].sourceInfo.siteProperty;
       site.siteCode = timeSeries[i].sourceInfo.siteCode[0].value;
@@ -169,11 +100,7 @@ function DisplayData(response){
 
       site.variableCodes.push(timeSeries[i].variable.variableCode[0].value);
 
-
-
       site.values.push(timeSeries[i].values[0].value[0].value);
-
-
 
       document.getElementById(site.siteName).remove();
       $(".results").appendChild(site.getDataFormattedHTML());
